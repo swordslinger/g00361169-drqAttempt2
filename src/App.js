@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Navbar, Nav} from 'react-bootstrap'
 import { MakeMenu } from './components/makemenu';
-import { Menu } from './components/menu';
+import { MenuData } from './components/menudata';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 import { FineDining } from './components/finedining';
 
@@ -17,7 +16,7 @@ class App extends Component {
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Fine Dining</Nav.Link>
-            <Nav.Link href="/menu">menu</Nav.Link>
+            <Nav.Link href="/menudata">menu</Nav.Link>
             <Nav.Link href="/makemenu">Create Menu</Nav.Link>
           </Nav>
         </Navbar>
@@ -25,7 +24,7 @@ class App extends Component {
         <Switch>
           <Route path = '/' component = {FineDining} exact></Route>
           <Route path = '/makemenu' component = {MakeMenu} exact></Route>
-          <Route path = '/menu' component = {Menu} exact></Route>
+          <Route path = '/menudata' component = {MenuData} exact></Route>
         </Switch>
       </div>
       </Router>

@@ -1,13 +1,13 @@
 //imports
 import React from 'react'
+import { MenuListing } from './menulisting'
 
 //export component for use in project
 export class Menu extends React.Component{
     render(){
-        return(
-            <div>
-                <h1>This is the menu Component</h1>
-            </div>
-        );
+        //creates a menu listing for each item on the menu
+        return this.props.menu.map((menu)=>{
+            return <MenuListing menu={menu}></MenuListing>
+        })
     }
 }
