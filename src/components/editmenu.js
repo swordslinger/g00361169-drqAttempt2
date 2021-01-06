@@ -5,6 +5,7 @@ import axios from 'axios'
 //export component for use in project
 export class EditMenu extends React.Component{
 
+    //binding too instances of each method
     constructor(){
        super();
        
@@ -12,7 +13,8 @@ export class EditMenu extends React.Component{
        this.onChangeFoodName = this.onChangeFoodName.bind(this);
        this.onChangePrice = this.onChangePrice.bind(this);
        this.onChangeFoodPicutre = this.onChangeFoodPicutre.bind(this)
-
+        
+       //tells code format for state
         this.state={
             FoodName:'',
             Price: '',
@@ -20,10 +22,11 @@ export class EditMenu extends React.Component{
         }
     }
 
+    //when compoent is active in view
     componentDidMount(){
-        console.log(this.props.match.params.id)
-
+        //go too this route point with doucment id
         axios.get("http://localhost:4000/api/menu/"+this.props.match.params.id)
+        //aysnchronus call used too re render updated sate for menu documents
         .then(response =>{
             this.setState({
                 _id:response.data._id,
@@ -32,11 +35,13 @@ export class EditMenu extends React.Component{
                 FoodPicture:response.data.foodpicture
             })
         })  
+        //logs error
         .catch((err)=>{
             console.log(err)
         })
     }
 
+    //onChanges are methods for editing values from forms
     onChangeFoodName(c){
         this.setState({
             FoodName: c.target.value
@@ -55,10 +60,14 @@ export class EditMenu extends React.Component{
         })
     }
 
+    //edits item
     onAddItem(c){
+        //used too cancel code
         c.preventDefault();
+        //alert when new values for edit menu are entered
         alert("Food: " +this.state.FoodName + " Price " + this.state.Price + " Picture Of food " + this.state.FoodPicture)
 
+        //creates edits menu item from values passed in 
         const newMenu = {
             foodname: this.state.FoodName,
             price: this.state.Price,
@@ -66,20 +75,16 @@ export class EditMenu extends React.Component{
             _id:this.state._id
         }
         
+        //sends id+new menu data back too url
         axios.put('http://localhost:4000/api/menu/'+this.state._id,newMenu)
         .then(res =>{
             console.log(res.data)
         })
         .catch()
-    //     axios.post('http://localhost:4000/api/menu',newMenu)
-    //     .then((res)=>{
-    //         console.log(res)
-    //     })
-    //     .catch((error)=>{
-    //         console.log(error)
-    //     })
      }
 
+
+    //renders formatted page with submit buttons and inputs binded too the methods
     render() {
         return (
             <div className='App'>
@@ -108,7 +113,7 @@ export class EditMenu extends React.Component{
                     <div className="form-group">
                         <input type='submit'
                             value='Edit Menu'
-                            className='btn btn-primary'></input>
+                            className='btn btn-warning'></input>
                     </div>
                 </form>
             </div>

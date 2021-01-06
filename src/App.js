@@ -1,3 +1,4 @@
+//imports
 import React, { Component } from 'react'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,11 +10,14 @@ import { FineDining } from './components/finedining';
 import { EditMenu } from './components/editmenu';
 
 class App extends Component {
+
+  //renders navbar which brings too main route points of page
+  //Switch for navigating between said route points based on path and class
   render() {
     return (
       <Router>
       <div className="App">
-        <Navbar bg="primary" variant="dark">
+        <Navbar bg="warning" variant="light">
           <Navbar.Brand href="#home">Navbar</Navbar.Brand>
           <Nav className="mr-auto">
             <Nav.Link href="/">Fine Dining</Nav.Link>
