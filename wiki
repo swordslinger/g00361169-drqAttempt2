@@ -1,0 +1,30 @@
+Additonal functionality provided:
+-Created very rudamentary API for program using json blob and formatter
+-Added single page functionality so app can be run from server but after adding this functionality, aesthetic aspects of the project and the root component only load properly
+on localhost 3000.
+
+
+Functionality:
+-Backend
+--server.js
+this is responsible for setting up the server on local host 4000,connecting too the mongo cluster
+creating shemas and handling using express too handle routing and functionality for update,delete and edit aswell as config for launching
+from the server.
+
+-componets
+--editmenu goes too a singular document specfied by an axios get method and allows you too edit the 3 properties of the current documet you have selected via forms
+
+--fine dining
+--this is just a route page with an image of the restaurnt with short bio
+
+--make menu
+follows very similar code too edit menu,it differs in the fact it allows you too insert one document too the database based on the 3 properties you give value too via forms
+
+--menu
+deconstructs the collection and allows you too pass up each indivudal part of a document through the program
+
+--menu data
+this is for handling the api,retrives the information from the api and populates an empty array with said information
+
+--menu listing
+this displays all the items on the menu,includes a button too remove an item,edit and item and displays information about the menu item.
