@@ -8,12 +8,12 @@ export class MenuListing extends React.Component {
         return (
             <div>
                 <Card>
-                    <Card.Header>{this.props.menu.FoodName}</Card.Header>
+                    <Card.Header>{this.props.menu.foodname}</Card.Header>
                     <Card.Body>
                         <blockquote className="blockquote mb-0">
-                            <img src={this.props.menu.FoodPicture}></img>
+                            <img src={this.props.menu.foodpicture}></img>
                             <footer className="blockquote-footer">
-                                {this.props.menu.Price}
+                                {this.props.menu.price}
                             </footer>
                         </blockquote>
                     </Card.Body>

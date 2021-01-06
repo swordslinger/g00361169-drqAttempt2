@@ -3,6 +3,7 @@ const app = express()
 const port = 4000
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose')
 
 app.use(cors());
 app.use(function(req, res, next) {
@@ -22,46 +23,70 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
-    
+
+const mongoString = "mongodb+srv://admin:root@cluster0.3yo9l.mongodb.net/menu?retryWrites=true&w=majority"
+mongoose.connect(mongoString,{useNewUrlParser: true})
+
+const Schema = mongoose.Schema
+
+var menuSchema = new Schema({
+    foodname:String,
+    price:String,
+    foodpicture:String
+})
+
+var menuTable = mongoose.model("menu",menuSchema)
 
 app.get('/', (req, res) => {
     res.send('Hello word!')
 })
 
 app.get('/api/menu',(req, res)=>{
-    const  mymenu = [
-            {
-                "FoodName": "Garlic Bread",
-                "Price": "5.00",
-                "foodID": "0",
-                "Type": "food",
-                "FoodPicture": "https://thumbs.dreamstime.com/b/garlic-pizza-bread-5951445.jpg"
-              },
-              {
-                "FoodName": "Pizza",
-                "Price": "14.00",
-                "foodID": "1",
-                "Type": "food",
-                "FoodPicture": "https://thumbs.dreamstime.com/b/italian-pepperoni-pizza-thick-pie-crust-spicy-sausage-mozzarella-tomato-isolated-white-viewed-whole-80010925.jpg"
-              },
-              {
-                "FoodName": "Pasta",
-                "Price": "10.00",
-                "foodID": "2",
-                "Type": "food",
-                "FoodPicture": "https://thumbs.dreamstime.com/b/pasta-close-up-penne-parmesan-cheese-fresh-onion-97533239.jpg"
-              },
-              {
-                "FoodName": "Chips",
-                "Price": "2.99",
-                "foodID": "3",
-                "Type": "food",
-                "FoodPicture": "https://thumbs.dreamstime.com/b/fat-chips-8972481.jpg"
-              }
-    ];
-    res.status(200).json({
-        menu:mymenu})
+    // const  mymenu = [
+    //         {
+    //             "FoodName": "Garlic Bread",
+    //             "Price": "5.00",
+    //             "foodID": "0",
+    //             "Type": "food",
+    //             "FoodPicture": "https://thumbs.dreamstime.com/b/garlic-pizza-bread-5951445.jpg"
+    //           },
+    //           {
+    //             "FoodName": "Pizza",
+    //             "Price": "14.00",
+    //             "foodID": "1",
+    //             "Type": "food",
+    //             "FoodPicture": "https://thumbs.dreamstime.com/b/italian-pepperoni-pizza-thick-pie-crust-spicy-sausage-mozzarella-tomato-isolated-white-viewed-whole-80010925.jpg"
+    //           },
+    //           {
+    //             "FoodName": "Pasta",
+    //             "Price": "10.00",
+    //             "foodID": "2",
+    //             "Type": "food",
+    //             "FoodPicture": "https://thumbs.dreamstime.com/b/pasta-close-up-penne-parmesan-cheese-fresh-onion-97533239.jpg"
+    //           },
+    //           {
+    //             "FoodName": "Chips",
+    //             "Price": "2.99",
+    //             "foodID": "3",
+    //             "Type": "food",
+    //             "FoodPicture": "https://thumbs.dreamstime.com/b/fat-chips-8972481.jpg"
+    //           }
+    // ];
+
+    menuTable.find((err, data)=>{
+        res.json(data)
+    })
+    // res.status(200).json({
+    //     menu:mymenu})
 })
+app.get(('/api/menu/:id'),(req,res)=>{
+    console.log(req.params.id)
+
+    menuTable.findById(req.params.id,(err,data)=>{
+        res.json(data);
+    })
+})
+
 
 app.post('/api/menu', (req, res)=>{
     console.log('Menu items recived')
@@ -69,6 +94,13 @@ app.post('/api/menu', (req, res)=>{
     console.log(req.body.price)
     console.log(req.body.foodpicture)
 
+    menuTable.create({
+       foodname : req.body.foodname,
+        price : req.body.price,
+        foodpicture : req.body.foodpicture
+    })
+
+    res.send("item added")
 })
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

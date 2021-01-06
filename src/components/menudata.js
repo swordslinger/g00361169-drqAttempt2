@@ -13,7 +13,7 @@ export class MenuData extends React.Component {
         axios.get('http://localhost:4000/api/menu')
         .then(
             (response)=>{
-                this.setState({menu: response.data.menu})
+                this.setState({menu: response.data})
                 console.log(response.data.Search)
 
             })
