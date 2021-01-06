@@ -4,6 +4,7 @@ const port = 4000
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose')
+const path = require('path')
 
 app.use(cors());
 app.use(function(req, res, next) {
@@ -14,9 +15,11 @@ app.use(function(req, res, next) {
     next();
     });
 
+
+
 //configuartion,1st sends build file from server too browser,2nd one sends static file from server too browser
-//app.use(express.static(path.join(__dirname,'../build')))
-//app.use('/static', express.static(path.join(__dirname, 'build//static')));
+app.use(express.static(path.join(__dirname,'../build')))
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -122,6 +125,10 @@ app.post('/api/menu', (req, res)=>{
     })
 
     res.send("item added")
+})
+
+app.get('*', (req,res)=>{
+    res.sendFile(path.join(__dirname+'/../build/index.html'))
 })
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
