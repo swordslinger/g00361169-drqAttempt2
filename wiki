@@ -1,0 +1,4 @@
+Additonal functionality provided:
+-Created very rudamentary API for program using json blob and formatter
+-Added single page functionality so app can be run from server but after adding this functionality, aesthetic aspects of the project and the root component only load properly
+on localhost 3000.
