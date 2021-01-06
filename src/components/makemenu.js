@@ -1,5 +1,6 @@
 //imports
 import React from 'react'
+import axios from 'axios'
 
 //export component for use in project
 export class MakeMenu extends React.Component{
@@ -40,6 +41,19 @@ export class MakeMenu extends React.Component{
     onAddItem(c){
         c.preventDefault();
         alert("Food: " +this.state.FoodName + " Price " + this.state.Price + " Picture Of food " + this.state.FoodPicture)
+
+        const newMenu = {
+            foodname: this.state.FoodName,
+            price: this.state.Price,
+            foodpicture: this.state.FoodPicture
+        }   
+        axios.post('http://localhost:4000/api/menu',newMenu)
+        .then((res)=>{
+            console.log(res)
+        })
+        .catch((error)=>{
+            console.log(error)
+        })
     }
 
     render() {

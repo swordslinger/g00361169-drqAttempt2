@@ -10,10 +10,10 @@ export class MenuData extends React.Component {
     }
     
     componentDidMount(){
-        axios.get('https://jsonblob.com/api/c572eeef-4f94-11eb-bace-e9e856984632')
+        axios.get('http://localhost:4000/api/menu')
         .then(
             (response)=>{
-                this.setState({menu: response.data.Search})
+                this.setState({menu: response.data.menu})
                 console.log(response.data.Search)
 
             })
