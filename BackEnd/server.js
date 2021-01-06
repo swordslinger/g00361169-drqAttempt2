@@ -88,6 +88,27 @@ app.get(('/api/menu/:id'),(req,res)=>{
 })
 
 
+//Deletes record in data base,based on ID
+app.delete('/api/menu/:id',(req, res)=>{
+    console.log("Delete menu Item: " + req.params._id)
+
+    menuTable.findByIdAndDelete(req.params._id,(err, info)=>{
+        res.send(info)
+    })
+})
+
+app.put('/api/menu/:id',(req, res)=>{
+console.log("Update menu: " + req.params.id)
+console.log(req.body)
+
+menuTable.findByIdAndUpdate(req.params.id,req.body, {new:true},
+    (err,data)=>{
+        res.send(data)
+    })
+    
+})
+
+
 app.post('/api/menu', (req, res)=>{
     console.log('Menu items recived')
     console.log(req.body.foodname)
